@@ -80,6 +80,7 @@ def render(template: str, strict=True, /, **variables) -> str:
             except KeyError as err:
                 if strict:
                     raise TemplateError("Placeholder missing value", name) from err
+                return template
             return re.sub(pattern.format(re.escape(name)), value, template)
 
         for name in extract_placeholders():
