@@ -7,6 +7,7 @@ is unnecessary.
 ## TODO
 
 - Write README
+- Licence (BSD0)
 - Unit tests
 - pyproject.toml
 - Package on PyPI and conda-forge
