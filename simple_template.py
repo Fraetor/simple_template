@@ -81,7 +81,7 @@ def render(template: str, strict=True, /, **variables) -> str:
                 if strict:
                     raise TemplateError("Placeholder missing value", name) from err
                 return template
-            return re.sub(pattern.format(re.escape(name)), value, template)
+            return re.sub(pattern.format(re.escape(name)), str(value), template)
 
         for name in extract_placeholders():
             template = substitute_placeholder(name)
