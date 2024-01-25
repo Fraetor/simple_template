@@ -85,7 +85,3 @@ Rendering a template failed due a placeholder without a value.
 
 simple_template is licenced under the BSD0 licence, so you can do whatever you
 like with it. See the full licence text in the [LICENCE](LICENCE) file.
-
-## TODO
-
-- Package on PyPI and conda-forge
