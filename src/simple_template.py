@@ -16,12 +16,7 @@ def render(template: str, /, **variables) -> str:
     The template should contain placeholders that will be replaced. These
     placeholders consist of the placeholder name within double curly braces. The
     name of the placeholder should be a valid python identifier. Whitespace
-    between the braces and the name is ignored.
-
-    The following placeholder style is supported:
-
-    Jinja Style:
-        {{ placeholder_name }}
+    between the braces and the name is ignored. E.g.: `{{ placeholder_name }}`
 
     An exception will be raised if there are placeholders without corresponding
     values. It is acceptable to provide unused values; they will be ignored.
@@ -60,14 +55,17 @@ def render(template: str, /, **variables) -> str:
         return s.isidentifier()
 
     def extract_placeholders():
-        return filter(isidentifier, set(re.findall(r"{{\s*[^}]\s*}}", template)))
+        matches = re.finditer(r"{{\s*([^}]+)\s*}}", template)
+        unique_names = {match.group(1) for match in matches}
+        return filter(isidentifier, unique_names)
 
     def substitute_placeholder(name):
         try:
             value = str(variables[name])
         except KeyError as err:
             raise TemplateError("Placeholder missing value", name) from err
-        return re.sub(r"{{\s*{0}\s*}}".format(re.escape(name)), value, template)
+        pattern = r"{{\s*%s\s*}}" % re.escape(name)
+        return re.sub(pattern, value, template)
 
     for name in extract_placeholders():
         template = substitute_placeholder(name)
