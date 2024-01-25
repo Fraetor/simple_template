@@ -5,81 +5,90 @@ of [Jinja](https://palletsprojects.com/p/jinja/) and friends is unnecessary.
 
 ## Installation
 
-<!-- TODO: Fill in URLs. -->
+simple_template can be installed from
+[PyPI](https://pypi.org/project/simple_template/) or
+[conda-forge](https://anaconda.org/conda-forge/simple_template).
 
-simple_template can be installed from [PyPI]() or [conda-forge]().
+### Install from PyPI
 
 ```sh
-# Install from PyPI.
 pip install simple_template
-# Install from conda-forge
+```
+
+### Install from conda-forge
+
+```sh
 conda install -c conda-forge simple_template
 ```
 
 ## Usage
 
-The module contains two functions, and one Exception.
+Usage information can be found by running `help(simple_template)`.
 
-### `simple_template.render(template: str, /, **variables) -> str`
+```manpage
+Help on module simple_template:
 
-Render the template with the provided variables.
+NAME
+    simple_template - Fills in placeholder values in a string or file.
 
-The template should contain placeholders that will be replaced. These
-placeholders consist of the placeholder name within double curly braces. The
-name of the placeholder should be a valid python identifier. Whitespace
-between the braces and the name is ignored. E.g.: `{{ placeholder_name }}`
+DESCRIPTION
+    Intended for HTML files. Simple substitution only, with an easy API
 
-An exception will be raised if there are placeholders without corresponding
-values. It is acceptable to provide unused values; they will be ignored.
+CLASSES
+    class TemplateError(builtins.KeyError)
+        Rendering a template failed due a placeholder without a value.
 
-#### Parameters
+FUNCTIONS
+    render(template: str, /, **variables) -> str
+        Render the template with the provided variables.
 
-template: str\
-Template to fill with variables.
+        The template should contain placeholders that will be replaced. These
+        placeholders consist of the placeholder name within double curly braces. The
+        name of the placeholder should be a valid python identifier. Whitespace
+        between the braces and the name is ignored. E.g.: `{{ placeholder_name }}`
 
-**variables: Any\
-Keyword arguments for the placeholder values. The argument name should be the
-same as the placeholder's name. You can unpack a dictionary of value with
-`render(template, **my_dict)`.
+        An exception will be raised if there are placeholders without corresponding
+        values. It is acceptable to provide unused values; they will be ignored.
 
-#### Returns
+        Parameters
+        ----------
+        template: str
+            Template to fill with variables.
 
-rendered_template: str\
-Filled template.
+        **variables: Any
+            Keyword arguments for the placeholder values. The argument name should
+            be the same as the placeholder's name. You can unpack a dictionary of
+            value with `render(template, **my_dict)`.
 
-#### Raises
+        Returns
+        -------
+        rendered_template: str
+            Filled template.
 
-TemplateError\
-Value not given for a placeholder in the template.
+        Raises
+        ------
+        TemplateError
+            Value not given for a placeholder in the template.
+        TypeError
+            If the template is not a string, or a variable cannot be casted to a
+            string.
 
-TypeError\
-If the template is not a string, or a variable cannot be casted to a string.
+        Examples
+        --------
+        >>> template = "<p>Hello {{myplaceholder}}!</p>"
+        >>> simple_template.render(template, myplaceholder="World")
+        "<p>Hello World!</p>"
 
-#### Examples
+    render_file(template_path: str, /, **variables) -> str
+        Render a template directly from a file.
 
-```py
->>> template = "<p>Hello {{myplaceholder}}!</p>"
->>> simple_template.render(template, myplaceholder="World")
-"<p>Hello World!</p>"
+        Otherwise the same as `simple_template.render()`.
+
+        Examples
+        --------
+        >>> simple_template.render_file("/path/to/template.html", myplaceholder="World")
+        "<p>Hello World!</p>"
 ```
-
-### `simple_template.render_file(template_path: str, /, **variables) -> str`
-
-Render a template directly from a file.
-
-Otherwise the same as `simple_template.render()`.
-
-#### Examples
-
-```py
->>> simple_template.render_file("/path/to/template.html", myplaceholder="World")
-"<p>Hello World!</p>"
-```
-
-### `simple_template.TemplateError()`
-
-Rendering a template failed due a placeholder without a value.
-
 
 ## Licence
 
