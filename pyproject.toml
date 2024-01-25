@@ -1,7 +1,7 @@
 [project]
 name = "simple_template"
 dynamic = ["version"]
-description = " Simple placeholder-filling template library."
+description = " Simple placeholder filling template library."
 authors = [{ name = "James Frost" }]
 readme = "README.md"
 license = { text = "BSD0" }
