@@ -16,16 +16,16 @@ def test_simple_placeholder():
 def test_multiple_placeholders():
     """Templating of multiple different placeholders."""
     template = "<p>{{greeting}} {{who}}!</p>"
-    actual = simple_template.render(template, greeting="Hello")
+    actual = simple_template.render(template, greeting="Hello", who="World")
     expected = "<p>Hello World!</p>"
     assert actual == expected
 
 
 def test_repeated_placeholders():
     """Templating of repeated placeholders."""
-    template = "<p>{{who}} says {{greeting}} {{ who }}</p>"
-    actual = simple_template.render(template, greeting="Hello")
-    expected = "<p>Hello World!</p>"
+    template = "<p>{{who}} says {{greeting}} {{ who }}!</p>"
+    actual = simple_template.render(template, greeting="Hello", who="World")
+    expected = "<p>World says Hello World!</p>"
     assert actual == expected
 
 
