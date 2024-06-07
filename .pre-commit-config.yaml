@@ -5,13 +5,13 @@ ci:
 
 repos:
   - repo: https://github.com/codespell-project/codespell
-    rev: 6e41aba91fb32e9feb741a6258eefeb9c6e4a482  # frozen: v2.2.6
+    rev: 193cd7d27cd571f79358af09a8fb8997e54f8fff  # frozen: v2.3.0
     hooks:
     - id: codespell
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.
-    rev: 5559d0350deec43675eef448015296e1d79800bd  # frozen: v0.4.3
+    rev: f42857794802b6a77b0e66f08803575aa80d3c8f  # frozen: v0.4.7
     hooks:
       - id: ruff
         args: [ --fix, --show-fixes, --exit-non-zero-on-fix ]
