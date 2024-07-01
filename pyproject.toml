@@ -34,7 +34,6 @@ source = ["src"]
 
 [tool.ruff]
 line-length = 88
-show-source = true
 src = ["src", "test"]
 
 [tool.ruff.lint]
