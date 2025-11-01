@@ -27,7 +27,7 @@ jobs:
           pytest --verbose --cov --cov-append --cov-config=pyproject.toml
           mv .coverage ".coverage.${{ matrix.py-ver }}"
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: coverage-data-${{ matrix.py-ver }}
           path: .coverage.*
