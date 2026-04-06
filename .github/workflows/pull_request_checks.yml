@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        py-ver: ["py39", "py310", "py311", "py312"]
+        py-ver: ["py311", "py312", "py313", "py314"]
     steps:
       - uses: actions/checkout@v6
 
@@ -56,24 +56,8 @@ jobs:
           pattern: coverage-data-*
           merge-multiple: true
 
-      - name: Generate coverage report
-        run: |
-          coverage combine
-          coverage html
-
-      - name: Add report to PR
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          # This links to a hosted version of the HTML report.
-          tar -czf coverage-report.tar.gz htmlcov/
-          report_url="$(curl -sSf --data-binary @coverage-report.tar.gz https://tmpweb.net)"
-          badge_options="$(coverage json --fail-under=0 -qo - | jq -r .totals.percent_covered_display)%25-blue?style=for-the-badge"
-          echo "[![Coverage](https://img.shields.io/badge/coverage-${badge_options})](${report_url})" >> ${{ runner.temp }}/cov-report.md
-          # Edit last comment if it exists, else create new one.
-          if ! gh pr comment --edit-last ${{ github.head_ref }} --body-file ${{ runner.temp }}/cov-report.md ; then
-            gh pr comment ${{ github.head_ref }} --body-file ${{ runner.temp }}/cov-report.md
-          fi
+      - name: Generate complete coverage report
+        run: coverage combine
 
       - name: Check 95% minimum coverage
         run: coverage report --fail-under=95
